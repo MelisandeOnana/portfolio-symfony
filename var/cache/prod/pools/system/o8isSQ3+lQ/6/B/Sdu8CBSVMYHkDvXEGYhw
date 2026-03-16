@@ -1,0 +1,114 @@
+<?php //f4fb7b1190902e32e12c1ce0b4267d45
+
+return [PHP_INT_MAX, new class() implements \Symfony\Component\Cache\Traits\CachedValueInterface { public function getValue(): mixed { return \Symfony\Component\VarExporter\Internal\Hydrator::hydrate(
+    $o = [
+        clone (($p = &\Symfony\Component\VarExporter\Internal\Registry::$prototypes)['Doctrine\\ORM\\Query\\ParserResult'] ?? \Symfony\Component\VarExporter\Internal\Registry::p('Doctrine\\ORM\\Query\\ParserResult')),
+        clone ($p['Doctrine\\ORM\\Query\\Exec\\SingleSelectSqlFinalizer'] ?? \Symfony\Component\VarExporter\Internal\Registry::p('Doctrine\\ORM\\Query\\Exec\\SingleSelectSqlFinalizer')),
+        clone ($p['Doctrine\\ORM\\Query\\ResultSetMapping'] ?? \Symfony\Component\VarExporter\Internal\Registry::p('Doctrine\\ORM\\Query\\ResultSetMapping')),
+    ],
+    null,
+    [
+        'Doctrine\\ORM\\Query\\ParserResult' => [
+            'sqlFinalizer' => [
+                $o[1],
+            ],
+            'resultSetMapping' => [
+                $o[2],
+            ],
+            'parameterMappings' => [
+                [
+                    'visible' => [
+                        0,
+                    ],
+                ],
+            ],
+        ],
+        'Doctrine\\ORM\\Query\\Exec\\SingleSelectSqlFinalizer' => [
+            'sql' => [
+                1 => 'SELECT p0_.id_projet AS id_projet_0, p0_.titre AS titre_1, p0_.description AS description_2, p0_.date_debut AS date_debut_3, p0_.date_fin AS date_fin_4, p0_.visible AS visible_5, p0_.lien AS lien_6, p0_.image AS image_7, p0_.documents AS documents_8, p0_.github_links AS github_links_9, p0_.type_projet AS type_projet_10, p0_.etat AS etat_11 FROM projet p0_ WHERE p0_.visible = ? ORDER BY p0_.date_debut DESC',
+            ],
+        ],
+        'stdClass' => [
+            'aliasMap' => [
+                2 => [
+                    'p' => 'App\\Entity\\Projet',
+                ],
+            ],
+            'fieldMappings' => [
+                2 => [
+                    'id_projet_0' => 'id',
+                    'titre_1' => 'titre',
+                    'description_2' => 'description',
+                    'date_debut_3' => 'dateDebut',
+                    'date_fin_4' => 'dateFin',
+                    'visible_5' => 'visible',
+                    'lien_6' => 'lien',
+                    'image_7' => 'image',
+                    'documents_8' => 'documents',
+                    'github_links_9' => 'githubLinks',
+                    'type_projet_10' => 'typeProjet',
+                    'etat_11' => 'etat',
+                ],
+            ],
+            'columnAliasMappings' => [
+                2 => [
+                    'App\\Entity\\Projet' => [
+                        'p' => [
+                            'id' => 'id_projet_0',
+                            'titre' => 'titre_1',
+                            'description' => 'description_2',
+                            'dateDebut' => 'date_debut_3',
+                            'dateFin' => 'date_fin_4',
+                            'visible' => 'visible_5',
+                            'lien' => 'lien_6',
+                            'image' => 'image_7',
+                            'documents' => 'documents_8',
+                            'githubLinks' => 'github_links_9',
+                            'typeProjet' => 'type_projet_10',
+                            'etat' => 'etat_11',
+                        ],
+                    ],
+                ],
+            ],
+            'entityMappings' => [
+                2 => [
+                    'p' => null,
+                ],
+            ],
+            'columnOwnerMap' => [
+                2 => [
+                    'id_projet_0' => 'p',
+                    'titre_1' => 'p',
+                    'description_2' => 'p',
+                    'date_debut_3' => 'p',
+                    'date_fin_4' => 'p',
+                    'visible_5' => 'p',
+                    'lien_6' => 'p',
+                    'image_7' => 'p',
+                    'documents_8' => 'p',
+                    'github_links_9' => 'p',
+                    'type_projet_10' => 'p',
+                    'etat_11' => 'p',
+                ],
+            ],
+            'declaringClasses' => [
+                2 => [
+                    'id_projet_0' => 'App\\Entity\\Projet',
+                    'titre_1' => 'App\\Entity\\Projet',
+                    'description_2' => 'App\\Entity\\Projet',
+                    'date_debut_3' => 'App\\Entity\\Projet',
+                    'date_fin_4' => 'App\\Entity\\Projet',
+                    'visible_5' => 'App\\Entity\\Projet',
+                    'lien_6' => 'App\\Entity\\Projet',
+                    'image_7' => 'App\\Entity\\Projet',
+                    'documents_8' => 'App\\Entity\\Projet',
+                    'github_links_9' => 'App\\Entity\\Projet',
+                    'type_projet_10' => 'App\\Entity\\Projet',
+                    'etat_11' => 'App\\Entity\\Projet',
+                ],
+            ],
+        ],
+    ],
+    $o[0],
+    []
+); } }];

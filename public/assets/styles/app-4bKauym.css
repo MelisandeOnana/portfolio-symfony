@@ -1,0 +1,12 @@
+/* Fichier CSS de base pour le projet Symfony */
+body {
+    font-family: 'Inter', Arial, sans-serif;
+    background: #f8f8fa;
+    color: #222;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    color: #6b21a8;
+}
+
+/* Ajoutez ici vos styles personnalisés */
