@@ -1,0 +1,196 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Mes Compétences - Portfolio Mélisande Onana{% endblock %}
+
+{% block body %}
+<!-- Skills Hero -->
+<section class="bg-gradient-to-br from-purple-600 via-purple-700 to-violet-800 text-white py-16 sm:py-24">
+    <div class="max-w-7xl mx-auto px-2 xs:px-4 sm:px-6 lg:px-8 text-center">
+        <h1 class="text-3xl xs:text-4xl sm:text-5xl md:text-6xl font-light mb-4 sm:mb-6 leading-tight">Mes Compétences</h1>
+        <div class="w-16 xs:w-24 h-1 bg-gradient-to-r from-yellow-300 to-orange-300 mx-auto mt-6 sm:mt-8"></div>
+    </div>
+</section>
+
+<!-- Skills Grid -->
+<section class="py-10 sm:py-16 bg-gray-50">
+    <div class="max-w-7xl mx-auto px-2 xs:px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-8 sm:mb-12">
+            <p class="text-base xs:text-lg text-gray-600 max-w-2xl mx-auto">
+                Découvrez l'ensemble des technologies que je maîtrise, acquises depuis {{ technologies|length > 0 ? technologies|first.dateDebut|date('Y') : '2023' }}
+            </p>
+        </div>
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 md:gap-8">
+            {% for tech in technologies %}
+                <div class="group bg-white rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 overflow-hidden border border-gray-100 flex flex-col min-h-[320px] sm:min-h-[260px] md:min-h-[220px]">
+                    <!-- Header avec icône -->
+                    <div class="bg-gradient-to-r from-purple-500 to-violet-600 p-3 sm:p-4 md:p-6 text-center">
+                        <div class="text-2xl sm:text-3xl md:text-4xl mb-1 sm:mb-2 md:mb-3 text-white">
+                            {% if tech.nom|lower == 'html' %}
+                                <i class="fab fa-html5"></i>
+                            {% elseif tech.nom|lower == 'css' %}
+                                <i class="fab fa-css3-alt"></i>
+                            {% elseif tech.nom|lower == 'javascript' %}
+                                <i class="fab fa-js-square"></i>
+                            {% elseif tech.nom|lower == 'php' %}
+                                <i class="fab fa-php"></i>
+                            {% elseif tech.nom|lower == 'react' %}
+                                <i class="fab fa-react"></i>
+                            {% elseif tech.nom|lower == 'laravel' %}
+                                <i class="fab fa-laravel"></i>
+                            {% elseif tech.nom|lower == 'symfony' %}
+                                <i class="fab fa-symfony"></i>
+                            {% elseif tech.nom|lower == 'mysql' %}
+                                <i class="fas fa-database"></i>
+                            {% elseif tech.nom|lower == 'git' %}
+                                <i class="fab fa-git-alt"></i>
+                            {% elseif tech.nom|lower == 'docker' %}
+                                <i class="fab fa-docker"></i>
+                            {% elseif tech.nom|lower == 'node.js' or tech.nom|lower == 'nodejs' %}
+                                <i class="fab fa-node-js"></i>
+                            {% elseif tech.nom|lower == 'vue.js' or tech.nom|lower == 'vue' %}
+                                <i class="fab fa-vuejs"></i>
+                            {% elseif tech.nom|lower == 'angular' %}
+                                <i class="fab fa-angular"></i>
+                            {% elseif tech.nom|lower == 'python' %}
+                                <i class="fab fa-python"></i>
+                            {% elseif tech.nom|lower == 'bootstrap' %}
+                                <i class="fab fa-bootstrap"></i>
+                            {% elseif tech.nom|lower == 'sass' %}
+                                <i class="fab fa-sass"></i>
+                            {% elseif tech.nom|lower == 'aws' %}
+                                <i class="fab fa-aws"></i>
+                            {% elseif 'pix' in tech.nom|lower %}
+                                <i class="fas fa-certificate"></i>
+                            {% elseif 'tailwind' in tech.nom|lower %}
+                                <i class="fas fa-wind"></i>
+                            {% else %}
+                                <i class="fas fa-code"></i>
+                            {% endif %}
+                        </div>
+                        <h3 class="text-sm sm:text-base md:text-xl font-semibold text-white">{{ tech.nom }}</h3>
+                    </div>
+                    
+                    <!-- Contenu -->
+                    <div class="p-3 sm:p-4 md:p-6 flex-1 flex flex-col">
+                        <p class="text-gray-600 text-xs sm:text-sm md:text-base leading-relaxed mb-2 sm:mb-3 md:mb-4">
+                            {{ tech.description }}
+                        </p>
+                        
+                        <!-- Informations détaillées -->
+                        <div class="space-y-1 sm:space-y-2 md:space-y-3">
+                            <div class="flex items-center justify-between text-xs sm:text-sm md:text-base">
+                                <span class="text-gray-500">
+                                    <i class="fas fa-calendar-alt mr-1 sm:mr-2"></i>
+                                    Depuis
+                                </span>
+                                <span class="font-medium text-gray-900">
+                                    {{ tech.dateDebut|date('M Y') }}
+                                </span>
+                            </div>
+                            
+                            <!-- Badge de statut - Seulement si le statut n'est pas null -->
+                            {% if tech.statut is not null %}
+                                <div class="flex justify-center pt-1 sm:pt-2 md:pt-3">
+                                    {% if tech.statut == 'termine' %}
+                                        <span class="inline-flex items-center px-2 sm:px-3 md:px-4 py-1 rounded-full text-xs md:text-sm font-medium bg-green-100 text-green-800">
+                                            <i class="fas fa-check mr-1"></i>
+                                            Maîtrisé
+                                        </span>
+                                    {% elseif tech.statut == 'en_cours' %}
+                                        <span class="inline-flex items-center px-2 sm:px-3 md:px-4 py-1 rounded-full text-xs md:text-sm font-medium bg-yellow-100 text-yellow-800">
+                                            <i class="fas fa-clock mr-1"></i>
+                                            En cours
+                                        </span>
+                                    {% endif %}
+                                </div>
+                            {% endif %}
+                        </div>
+                        
+                        <!-- Certifications multiples -->
+                        {% if tech.certificationsPdf and tech.certificationsPdf|length > 0 %}
+                            <div class="mt-2 sm:mt-3 md:mt-4 pt-2 sm:pt-3 md:pt-4 border-t border-gray-200">
+                                <div class="text-xs sm:text-sm md:text-base font-medium text-gray-700 mb-1 sm:mb-2 md:mb-3">
+                                    <i class="fas fa-certificate text-blue-600 mr-1 sm:mr-2"></i>
+                                    {{ tech.certificationsPdf|length }} certification{% if tech.certificationsPdf|length > 1 %}s{% endif %}
+                                </div>
+                                <div class="space-y-1 sm:space-y-2 md:space-y-3">
+                                    {% for certification in tech.certificationsPdf %}
+                                        <a href="{{ asset('assets/' ~ certification.filename) }}" target="_blank" 
+                                           class="flex items-center justify-between p-2 bg-blue-50 hover:bg-blue-100 rounded-lg transition duration-200 group">
+                                            <div class="flex items-center flex-1">
+                                                <i class="fas fa-file-pdf text-red-500 mr-1 sm:mr-2"></i>
+                                                <span class="text-xs sm:text-sm md:text-base text-gray-700 truncate" title="{{ certification.title }}">
+                                                    {{ certification.title|length > 20 ? certification.title|slice(0, 20) ~ '...' : certification.title }}
+                                                </span>
+                                            </div>
+                                            <i class="fas fa-external-link-alt text-blue-600 text-xs opacity-0 group-hover:opacity-100 transition-opacity"></i>
+                                        </a>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+            {% else %}
+                <div class="col-span-full">
+                    <div class="bg-yellow-50 border border-yellow-200 rounded-lg p-3 sm:p-4 md:p-8 text-center">
+                        <i class="fas fa-info-circle text-yellow-600 text-xl sm:text-2xl md:text-3xl mb-1 sm:mb-2 md:mb-4"></i>
+                        <h3 class="text-xs sm:text-base md:text-lg font-medium text-yellow-800 mb-1 sm:mb-2 md:mb-3">Aucune compétence enregistrée</h3>
+                        <p class="text-xs sm:text-base md:text-lg text-yellow-600">Les compétences seront bientôt disponibles.</p>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+    <!-- Pagination controls with dots -->
+    <div class="flex justify-center mt-6 sm:mt-8 space-x-1 sm:space-x-2">
+        {% set totalPages = (total / limit)|round(0, 'ceil') %}
+        {% for i in 1..totalPages %}
+            {% if i == page %}
+                <span class="w-3 h-3 sm:w-4 sm:h-4 rounded-full bg-purple-600 border-2 border-purple-300 flex items-center justify-center shadow-lg transition-all duration-300"></span>
+            {% else %}
+                <a href="{{ path('skills_list', {'page': i}) }}" 
+                   class="w-3 h-3 sm:w-4 sm:h-4 rounded-full bg-purple-200 border-2 border-purple-300 hover:bg-purple-400 transition-all duration-300 flex items-center justify-center"
+                   title="Page {{ i }}">
+                </a>
+            {% endif %}
+        {% endfor %}
+    </div>
+</section>
+
+<!-- Statistiques -->
+<section class="py-10 sm:py-16 bg-white">
+    <div class="max-w-7xl mx-auto px-2 xs:px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-8 sm:mb-12">
+            <h2 class="text-xl sm:text-3xl font-light text-gray-800 mb-2 sm:mb-4">Statistiques de compétences</h2>
+            <div class="w-10 sm:w-16 h-1 bg-violet-500 mx-auto"></div>
+        </div>
+        <div class="grid grid-cols-2 xs:grid-cols-2 md:grid-cols-4 gap-4 sm:gap-8 max-w-5xl mx-auto">
+            <div class="text-center group">
+                <div class="bg-gradient-to-br from-purple-50 to-violet-50 rounded-xl p-4 sm:p-6 border border-purple-100 group-hover:shadow-lg transition-all duration-300">
+                    <div class="text-xl sm:text-3xl font-bold text-purple-600 mb-1 sm:mb-2">{{ total }}</div>
+                    <p class="text-xs sm:text-sm font-medium text-gray-600">Technologies maîtrisées</p>
+                </div>
+            </div>
+            <div class="text-center group">
+                <div class="bg-gradient-to-br from-green-50 to-emerald-50 rounded-xl p-4 sm:p-6 border border-green-100 group-hover:shadow-lg transition-all duration-300">
+                    <div class="text-xl sm:text-3xl font-bold text-green-600 mb-1 sm:mb-2">{{ completed }}</div>
+                    <p class="text-xs sm:text-sm font-medium text-gray-600">Compétences maîtrisées</p>
+                </div>
+            </div>
+            <div class="text-center group">
+                <div class="bg-gradient-to-br from-yellow-50 to-orange-50 rounded-xl p-4 sm:p-6 border border-yellow-100 group-hover:shadow-lg transition-all duration-300">
+                    <div class="text-xl sm:text-3xl font-bold text-yellow-600 mb-1 sm:mb-2">{{ inProgress }}</div>
+                    <p class="text-xs sm:text-sm font-medium text-gray-600">En cours d'apprentissage</p>
+                </div>
+            </div>
+            <div class="text-center group">
+                <div class="bg-gradient-to-br from-indigo-50 to-blue-50 rounded-xl p-4 sm:p-6 border border-indigo-100 group-hover:shadow-lg transition-all duration-300">
+                    <div class="text-xl sm:text-3xl font-bold text-indigo-600 mb-1 sm:mb-2">{{ certificationsPdf }}</div>
+                    <p class="text-xs sm:text-sm font-medium text-gray-600">Certifications obtenues</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

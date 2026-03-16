@@ -1,0 +1,76 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Gestion des demandes de contact{% endblock %}
+
+{% block header%}{% endblock %}
+
+{% block body %}
+<div class="max-w-6xl mx-auto px-4 py-8">
+    <div class="flex flex-col md:flex-row md:items-center md:justify-between mb-8 gap-4">
+		<div class="flex-1">
+			<h1 class="text-5xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-purple-600 via-pink-400 to-violet-700 mb-3 drop-shadow-lg">Gestion des demandes de contact</h1>
+			<p class="text-gray-400 text-lg mb-4 italic">Retrouve ici toutes les demandes de contact, modifie-les, supprime-les ou ajoute-en de nouvelles facilement.</p>
+		</div>
+		<div class="flex gap-4 items-center">
+			<a href="{{ path('admin_dashboard') }}" class="inline-flex items-center gap-2 px-7 py-3 bg-gradient-to-br from-violet-500 via-purple-500 to-pink-500 text-white font-bold rounded-full shadow-lg hover:scale-105 hover:from-violet-600 hover:to-pink-600 transition-all duration-300 border-2 border-white">
+				<i class="fas fa-tachometer-alt text-lg"></i>
+				<span class="hidden md:inline">Tableau de bord</span>
+			</a>
+		</div>
+   	</div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+    {% for contact in pagination %}
+        <div class="bg-white border-2 border-purple-100 rounded-2xl shadow-xl p-6 flex flex-col justify-between hover:shadow-2xl transition-all duration-500 hover:-translate-y-1">
+            <div>
+                <h2 class="text-xl font-bold text-purple-700 mb-2">{{ contact.nom }}</h2>
+                <p class="text-gray-600 mb-2"><i class="fas fa-envelope mr-1"></i>{{ contact.email }}</p>
+                <p class="text-gray-500 text-sm mb-2">Envoyé le {{ contact.dateEnvoi|date('d/m/Y à H:i') }}</p>
+                <p class="text-gray-700 mb-2">{{ contact.message|length > 120 ? contact.message|slice(0,120) ~ '...' : contact.message }}</p>
+            </div>
+            <div class="flex gap-2 mt-4">
+                <a href="{{ path('admin_contact_show', {'id': contact.id}) }}" class="flex-1 px-4 py-2 bg-gradient-to-r from-purple-600 to-violet-600 text-white rounded-full hover:from-purple-700 hover:to-violet-700 text-sm text-center font-semibold shadow">Voir détail</a>
+                <form method="post" action="{{ path('admin_contact_delete', {'id': contact.id}) }}" class="flex-1" onsubmit="return confirm('Voulez-vous vraiment supprimer cette demande ?');">
+                    <input type="hidden" name="_token" value="{{ csrf_token('delete_contact_' ~ contact.id) }}">
+                    <button type="submit" class="w-full px-4 py-2 bg-gradient-to-r from-pink-500 to-red-600 text-white rounded-full hover:from-pink-600 hover:to-red-700 text-sm text-center font-semibold shadow transition-all duration-300">
+                        <i class="fas fa-trash-alt mr-1"></i>Supprimer
+                    </button>
+                </form>
+            </div>
+        </div>
+    {% else %}
+        <div class="col-span-full text-center text-purple-400 py-12 text-lg font-semibold">Aucune demande trouvée.</div>
+    {% endfor %}
+    </div>
+
+    {# Pagination navigation #}
+    {% if pagination is defined and pagination|length > 0 %}
+        <div class="mt-8 flex justify-center">
+            <nav aria-label="Pagination" class="inline-flex gap-2">
+                {% if pagination.currentPageNumber > 1 %}
+                    <a href="{{ path(app.request.attributes.get('_route'), app.request.query.all|merge({'page': pagination.currentPageNumber - 1})) }}"
+                       class="px-4 py-2 rounded-full bg-gradient-to-r from-purple-100 to-violet-100 text-purple-700 font-semibold shadow hover:from-purple-200 hover:to-violet-200 transition-all duration-300">
+                        &laquo; Précédent
+                    </a>
+                {% endif %}
+                {% for page in 1..pagination.pageCount %}
+                    {% if page == pagination.currentPageNumber %}
+                        <span class="px-4 py-2 rounded-full bg-gradient-to-r from-purple-600 to-violet-600 text-white font-bold shadow">{{ page }}</span>
+                    {% else %}
+                        <a href="{{ path(app.request.attributes.get('_route'), app.request.query.all|merge({'page': page})) }}"
+                           class="px-4 py-2 rounded-full bg-gradient-to-r from-purple-100 to-violet-100 text-purple-700 font-semibold shadow hover:from-purple-200 hover:to-violet-200 transition-all duration-300">
+                            {{ page }}
+                        </a>
+                    {% endif %}
+                {% endfor %}
+                {% if pagination.currentPageNumber < pagination.pageCount %}
+                    <a href="{{ path(app.request.attributes.get('_route'), app.request.query.all|merge({'page': pagination.currentPageNumber + 1})) }}"
+                       class="px-4 py-2 rounded-full bg-gradient-to-r from-purple-100 to-violet-100 text-purple-700 font-semibold shadow hover:from-purple-200 hover:to-violet-200 transition-all duration-300">
+                        Suivant &raquo;
+                    </a>
+                {% endif %}
+            </nav>
+        </div>
+    {% endif %}
+</div>
+{% endblock %}

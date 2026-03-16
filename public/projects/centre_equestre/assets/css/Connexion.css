@@ -1,0 +1,66 @@
+body {
+    background-color: #FFFFFF;
+    color: #360C0C;
+    font-family: 'Montserrat', sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+main {
+    background: #FFFFFF;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: 300px;
+    text-align: center;
+}
+h3 {
+    color: #360C0C;
+}
+.form-group {
+    margin-bottom: 15px;
+    text-align: left;
+}
+label {
+    font-weight: bold;
+}
+input {
+    width: 94%;
+    padding: 10px;
+    border: 1px solid #360C0C;
+    border-radius: 5px;
+}
+.input-group {
+    display: flex;
+    align-items: center;
+}
+.toggle-password {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 1.2em;
+    color: #360C0C;
+    margin-left: -30px;
+}
+.forgot-password-link {
+    display: block;
+    margin-top: 10px;
+    color: #360C0C;
+    text-decoration: none;
+    font-size: 0.9em;
+}
+button {
+    background-color: #360C0C;
+    color: #FFFFFF;
+    border: none;
+    padding: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 100%;
+    font-size: 1em;
+}
+button:hover {
+    background-color: #5E1E1E;
+}

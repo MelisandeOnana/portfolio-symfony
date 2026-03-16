@@ -1,0 +1,133 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Gestion des technologies - Administration{% endblock %}
+
+{% block header%}{% endblock %}
+
+{% block body %}
+<div class="max-w-6xl mx-auto px-4 py-8">
+    <div class="flex flex-col md:flex-row md:items-center md:justify-between mb-8 gap-4">
+        <div class="flex-1">
+            <h1 class="text-5xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-purple-600 via-pink-400 to-violet-700 mb-3 drop-shadow-lg">Gestion des Technologies</h1>
+            <p class="text-gray-400 text-lg mb-4 italic">Retrouve ici toutes tes technologies, modifie-les, supprime-les ou ajoute-en de nouvelles facilement.</p>
+        </div>
+        <div class="flex gap-4 items-center">
+            <a href="{{ path('admin_dashboard') }}" class="inline-flex items-center gap-2 px-7 py-3 bg-gradient-to-br from-violet-500 via-purple-500 to-pink-500 text-white font-bold rounded-full shadow-lg hover:scale-105 hover:from-violet-600 hover:to-pink-600 transition-all duration-300 border-2 border-white">
+                <i class="fas fa-tachometer-alt text-lg"></i>
+                <span class="hidden md:inline">Tableau de bord</span>
+            </a>
+            <a href="{{ path('admin_technology_new') }}" class="inline-flex items-center gap-2 px-7 py-3 bg-gradient-to-br from-pink-500 via-purple-600 to-violet-700 text-white font-bold rounded-full shadow-lg hover:scale-105 hover:from-pink-600 hover:to-violet-800 transition-all duration-300 border-2 border-white">
+                <i class="fas fa-plus text-lg"></i>
+                <span class="hidden md:inline">Ajouter un projet</span>
+            </a>
+        </div>
+    </div>
+
+    {% for message in app.flashes('success') %}
+        <div class="mb-6 p-4 bg-green-100 border border-green-400 text-green-700 rounded-lg">
+            <i class="fas fa-check-circle mr-2"></i>{{ message }}
+        </div>
+    {% endfor %}
+
+    {% for message in app.flashes('info') %}
+        <div class="mb-6 p-4 bg-blue-100 border border-blue-400 text-blue-700 rounded-lg">
+            <i class="fas fa-info-circle mr-2"></i>{{ message }}
+        </div>
+    {% endfor %}
+
+    {% for message in app.flashes('error') %}
+        <div class="mb-6 p-4 bg-red-100 border border-red-400 text-red-700 rounded-lg">
+            <i class="fas fa-exclamation-circle mr-2"></i>{{ message }}
+        </div>
+    {% endfor %}
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {% for technologie in pagination %}
+            <div class="bg-white border-2 border-purple-100 rounded-2xl shadow-xl p-6 flex flex-col justify-between hover:shadow-2xl transition-all duration-500 hover:-translate-y-1">
+                <div>
+                    <h2 class="text-xl font-bold text-purple-700 mb-2">{{ technologie.nom }}</h2>
+                    <p class="text-gray-600 mb-2">{{ technologie.description|length > 100 ? technologie.description|slice(0,100) ~ '...' : technologie.description }}</p>
+                    <div class="flex flex-wrap gap-2 mb-2">
+                        <span class="inline-block px-2 py-1 text-xs bg-purple-50 text-purple-700 rounded">Depuis : {{ technologie.dateDebut|date('M Y') }}</span>
+                        {% if technologie.statut is not null %}
+                            {% if technologie.statut == 'en_cours' %}
+                                <span class="inline-block px-2 py-1 text-xs bg-orange-100 text-orange-600 rounded-full"><i class="fas fa-clock mr-1"></i>En cours</span>
+                            {% elseif technologie.statut == 'termine' %}
+                                <span class="inline-block px-2 py-1 text-xs bg-green-100 text-green-600 rounded-full"><i class="fas fa-check-circle mr-1"></i>Maîtrisé</span>
+                            {% endif %}
+                        {% endif %}
+                    </div>
+                    {% if technologie.certificationsPdf and technologie.certificationsPdf|length > 0 %}
+                        <div class="pt-3 border-t border-gray-200">
+                            <div class="text-sm text-gray-700 font-medium mb-3"><i class="fas fa-certificate text-blue-600 mr-2"></i>{{ technologie.certificationsPdf|length }} certification{% if technologie.certificationsPdf|length > 1 %}s{% endif %}</div>
+                            <div class="space-y-2">
+                                {% for certification in technologie.certificationsPdf %}
+                                    <div class="flex items-center justify-between bg-gray-50 rounded-lg p-2">
+                                        <div class="flex items-center flex-1">
+                                            <i class="fas fa-file-pdf text-red-500 mr-2"></i>
+                                            <span class="text-xs text-gray-700 truncate" title="{{ certification.title }}">{{ certification.title|length > 25 ? certification.title|slice(0, 25) ~ '...' : certification.title }}</span>
+                                        </div>
+                                        <div class="flex space-x-1 ml-2">
+                                            <a href="{{ asset('assets/' ~ certification.filename) }}" target="_blank" class="text-blue-600 hover:text-blue-800 p-1" title="Ouvrir le PDF"><i class="fas fa-external-link-alt text-xs"></i></a>
+                                            <a href="{{ asset('assets/' ~ certification.filename) }}" download class="text-green-600 hover:text-green-800 p-1" title="Télécharger"><i class="fas fa-download text-xs"></i></a>
+                                        </div>
+                                    </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    {% endif %}
+                    {% if technologie.certificationPdf and (not technologie.certificationsPdf or technologie.certificationsPdf|length == 0) %}
+                        <div class="pt-3 border-t border-gray-200">
+                            <div class="text-sm text-gray-700 font-medium mb-2"><i class="fas fa-certificate text-blue-600 mr-2"></i>Certification</div>
+                            <div class="flex items-center justify-between bg-gray-50 rounded-lg p-2">
+                                <div class="flex items-center"><i class="fas fa-file-pdf text-red-500 mr-2"></i><span class="text-xs text-gray-700">Certification PDF</span></div>
+                                <div class="flex space-x-1"><a href="{{ asset('assets/' ~ technologie.certificationPdf) }}" target="_blank" class="text-blue-600 hover:text-blue-800 p-1" title="Ouvrir le PDF"><i class="fas fa-external-link-alt text-xs"></i></a><a href="{{ asset('assets/' ~ technologie.certificationPdf) }}" download class="text-green-600 hover:text-green-800 p-1" title="Télécharger"><i class="fas fa-download text-xs"></i></a></div>
+                            </div>
+                        </div>
+                    {% endif %}
+                </div>
+                <div class="flex gap-2 mt-4">
+                    <a href="{{ path('admin_technology_edit', {id: technologie.id}) }}" class="flex-1 px-4 py-2 bg-gradient-to-r from-purple-600 to-violet-600 text-white rounded-full hover:from-purple-700 hover:to-violet-700 text-sm text-center font-semibold shadow">Modifier</a>
+                    <form method="post" action="{{ path('admin_technology_delete', {id: technologie.id}) }}" class="flex-1" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer cette technologie ?');">
+                        <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ technologie.id) }}">
+                        <button type="submit" class="w-full px-4 py-2 bg-gradient-to-r from-pink-500 to-red-600 text-white rounded-full hover:from-pink-600 hover:to-red-700 text-sm text-center font-semibold shadow transition-all duration-300"><i class="fas fa-trash-alt mr-1"></i>Supprimer</button>
+                    </form>
+                </div>
+            </div>
+        {% else %}
+            <div class="col-span-full text-center text-purple-400 py-12 text-lg font-semibold">Aucune technologie trouvée.</div>
+        {% endfor %}
+    </div>
+
+    {# Pagination navigation #}
+    {% if pagination is defined and pagination|length > 0 %}
+        <div class="mt-8 flex justify-center">
+            <nav aria-label="Pagination" class="inline-flex gap-2">
+                {% if pagination.currentPageNumber > 1 %}
+                    <a href="{{ path(app.request.attributes.get('_route'), app.request.query.all|merge({'page': pagination.currentPageNumber - 1})) }}"
+                       class="px-4 py-2 rounded-full bg-gradient-to-r from-purple-100 to-violet-100 text-purple-700 font-semibold shadow hover:from-purple-200 hover:to-violet-200 transition-all duration-300">
+                        &laquo; Précédent
+                    </a>
+                {% endif %}
+                {% for page in 1..pagination.pageCount %}
+                    {% if page == pagination.currentPageNumber %}
+                        <span class="px-4 py-2 rounded-full bg-gradient-to-r from-purple-600 to-violet-600 text-white font-bold shadow">{{ page }}</span>
+                    {% else %}
+                        <a href="{{ path(app.request.attributes.get('_route'), app.request.query.all|merge({'page': page})) }}"
+                           class="px-4 py-2 rounded-full bg-gradient-to-r from-purple-100 to-violet-100 text-purple-700 font-semibold shadow hover:from-purple-200 hover:to-violet-200 transition-all duration-300">
+                            {{ page }}
+                        </a>
+                    {% endif %}
+                {% endfor %}
+                {% if pagination.currentPageNumber < pagination.pageCount %}
+                    <a href="{{ path(app.request.attributes.get('_route'), app.request.query.all|merge({'page': pagination.currentPageNumber + 1})) }}"
+                       class="px-4 py-2 rounded-full bg-gradient-to-r from-purple-100 to-violet-100 text-purple-700 font-semibold shadow hover:from-purple-200 hover:to-violet-200 transition-all duration-300">
+                        Suivant &raquo;
+                    </a>
+                {% endif %}
+            </nav>
+        </div>
+    {% endif %}
+</div>
+</section>
+{% endblock %}

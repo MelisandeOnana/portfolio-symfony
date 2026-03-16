@@ -1,0 +1,24 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Créer un utilisateur{% endblock %}
+
+{% block body %}
+<div class="min-h-screen flex items-center justify-center bg-gradient-to-br from-purple-900 via-purple-800 to-violet-900 py-12 px-4 sm:px-6 lg:px-8">
+    <div class="max-w-md w-full space-y-8 relative z-10">
+        <h2 class="mt-6 text-center text-3xl font-bold text-white">Créer un utilisateur</h2>
+        <div class="bg-white/80 backdrop-blur-md shadow-xl rounded-2xl px-8 py-8 mt-8 border border-gray-200">
+            {{ form_start(form) }}
+                {{ form_row(form.nom) }}
+                {{ form_row(form.prenom) }}
+                {{ form_row(form.email) }}
+                {{ form_row(form.motDePasse) }}
+                {{ form_row(form.roles) }}
+                <button type="submit" class="bg-violet-700 hover:bg-violet-800 text-white text-base font-semibold px-4 py-3 rounded-lg w-full mt-2 shadow transition-all duration-200">Créer l'utilisateur</button>
+            {{ form_end(form) }}
+            {% if success %}
+                <div class="mt-4 text-green-700 bg-green-100 border border-green-300 rounded-lg px-4 py-2 text-sm font-medium shadow">Utilisateur créé avec succès !</div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}

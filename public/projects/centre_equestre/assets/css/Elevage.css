@@ -1,0 +1,511 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+
+body {
+    font-family: 'Roboto', Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+header, main {
+    background-color: #360C0C;
+    color: #fff;
+    padding: 30px 20px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    position: relative;
+}
+
+.centre {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    flex-grow: 1;
+    margin-left: 155px;
+}
+
+.centre-not-connected {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.header-title {
+    font-size: 1.8em;
+    font-weight: 700;
+    margin-bottom: 5px;
+}
+
+.header-line {
+    width: 100%;
+    max-width: 200px;
+    height: 1px;
+    background-color: #fff;
+    margin: 5px 0;
+}
+
+.header-subtitle {
+    font-size: 1em;
+}
+
+.hamburger-menu {
+    cursor: pointer;
+    width: 30px;
+    height: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.bar1, .bar2, .bar3 {
+    background-color: #fff;
+    height: 2px;
+    transition: transform 0.3s ease, width 0.3s ease;
+}
+
+.bar1 { width: 45px; }
+.bar2 { width: 35px; }
+.bar3 { width: 25px; }
+
+.login-container {
+    margin-right: 20px;
+}
+
+.login-btn {
+    width: 35px;
+}
+
+/* Styles pour le bouton de bienvenue */
+.welcome-btn {
+    background-color: #fff;
+    color: #360C0C;
+    border: 2px solid #360C0C;
+    cursor: pointer;
+    font-size: 1em;
+    font-weight: 700;
+    padding: 10px 20px;
+    border-radius: 4px;
+    transition: all 0.3s ease;
+    margin-top: 10px;
+    text-align: center;
+}
+
+.welcome-btn:hover {
+    background-color: #360C0C;
+    color: #fff;
+}
+
+/* Conteneur de dropdown */
+.dropdown {
+    position: relative;
+    display: inline-block;
+    text-align: center; /* Ajouté pour centrer le contenu */
+}
+
+/* Contenu du dropdown (caché par défaut) */
+.dropdown-menu {
+    display: none;
+    position: absolute;
+    background-color: #fff;
+    min-width: 160px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+    z-index: 1;
+    text-align: center;
+    border-radius: 4px;
+    margin-top: 10px; /* Un peu d'espace entre le bouton et le menu */
+    opacity: 0; /* Début avec une opacité de 0 pour l'animation */
+    transition: opacity 0.3s ease, transform 0.3s ease; /* Transition pour l'animation */
+    transform: translateY(-10px); /* Début avec une légère translation vers le haut */
+}
+
+/* Afficher le contenu du dropdown */
+.dropdown.show .dropdown-menu {
+    display: block;
+    opacity: 1; /* Opacité 1 pour afficher le contenu */
+    transform: translateY(0); /* Réinitialiser la translation */
+}
+
+/* Liens du dropdown */
+.dropdown-menu a {
+    color: #360C0C;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+/* Styles des liens au survol */
+.dropdown-menu a:hover {
+    background-color: #360C0C;
+    color: #fff;
+}
+
+/* Styles des boutons */
+.admin-btn, .logout-btn {
+    background-color: #fff;
+    color: #360C0C;
+    border: 2px solid #360C0C;
+    cursor: pointer;
+    font-size: 1em;
+    transition: all 0.3s ease;
+    padding: 8px 16px;
+    border-radius: 4px;
+    margin: 5px 0; /* Espace entre les boutons */
+}
+
+/* Styles des boutons au survol */
+.admin-btn:hover, .logout-btn:hover {
+    background-color: #360C0C;
+    color: #fff;
+}
+
+.sidenav {
+    height: 100%;
+    width: 0;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: #360C0C;
+    overflow-x: hidden;
+    transition: width 0.5s, opacity 0.5s;
+    padding-top: 60px;
+    text-align: left;
+    z-index: 1000;
+}
+
+.sidenav ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.sidenav ul li {
+    display: flex;
+    align-items: center;
+    padding: 15px 20px;
+    transition: background-color 0.3s, color 0.3s;
+    border-radius: 4px;
+    margin: 5px 15px;
+    font-size: 1.1em;
+    font-weight: bold;
+}
+
+.sidenav ul li a {
+    color: #fff;
+    text-decoration: none;
+    flex-grow: 1;
+}
+
+.sidenav ul li img {
+    height: 32px;
+    margin-right: 10px;
+}
+
+.sidenav ul li:hover {
+    background-color: #444;
+    color: #f0f0f0;
+    transform: scale(1.05);
+}
+
+.sidenav span {
+    display: block;
+    padding: 10px 20px;
+    color: #fff;
+    font-size: 1.5em;
+    font-weight: bold;
+    text-align: center;
+}
+
+.sidenav .closebtn {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    font-size: 2em;
+    cursor: pointer;
+    color: #fff;
+    transition: transform 0.3s ease, color 0.3s ease;
+}
+
+.sidenav .closebtn:hover {
+    color: #f0f0f0;
+    transform: rotate(90deg);
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #f3f3f3;
+    border-radius: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    transition: all 0.3s ease;
+}
+
+.intro {
+    background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+    border-radius: 10px;
+    padding: 30px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-bottom: 40px;
+}
+
+.intro h2 {
+    font-family: 'Georgia', serif;
+    font-size: 2.5rem;
+    color: #360C0C;
+    margin-bottom: 20px;
+    text-align: center;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+.intro p {
+    font-family: 'Arial', sans-serif;
+    font-size: 1.1rem;
+    line-height: 1.8;
+    color: #360C0C;
+    margin-bottom: 15px;
+    text-align: justify;
+}
+
+/* Section pour les onglets */
+.nav-tabs {
+    justify-content: center;
+    margin-bottom: 30px;
+}
+
+.nav-link {
+    font-size: 1.2rem;
+    font-weight: 500;
+    padding: 12px 25px;
+    color: #360C0C;
+    transition: all 0.3s ease;
+    border-radius: 25px; /* Coins arrondis pour l'onglet */
+    margin: 0 10px;
+}
+
+.nav-link:hover {
+    background-color: rgb(34, 8, 8); /* Couleur au survol */
+    color: #fff;
+    transform: scale(1.05); /* Légère mise en avant au survol */
+}
+
+.nav-link:focus {
+    outline: none; /* Supprime le contour par défaut au focus */
+}
+
+.nav-tabs .nav-link {
+    border-radius: 25px; /* Coins arrondis pour les onglets */
+}
+
+       /* Carrousel */
+.carousel-item img {
+    width: 100%;
+    height: 500px; /* Augmente la hauteur pour plus d'impact visuel */
+    object-fit: cover; /* Assure que l'image garde son ratio sans être déformée */
+    border-radius: 10px; /* Bord arrondi pour un look plus doux */
+}
+
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+    background-color: #360C0C;
+    border-radius: 50%; /* Icones arrondies pour un look plus moderne */
+    margin-top: 420px;
+}
+
+.carousel-inner {
+    border-radius: 10px; /* Ajout de coins arrondis pour le carrousel */
+    overflow: hidden; /* Empêche les images de déborder du carrousel */
+}
+
+/* Section pour les informations sous chaque image */
+.card-body {
+    padding: 20px;
+    text-align: center;
+    background-color: rgba(255, 255, 255, 0.8); /* Fond semi-transparent pour mieux voir les images */
+    border-top: 1px solid #ddd;
+    border-radius: 10px; /* Coins arrondis pour le texte */
+}
+
+/* Ajustement des titres et des textes */
+.card-title {
+    font-size: 1.4rem;
+    font-weight: bold;
+    color: #303030;
+}
+
+.card-text {
+    font-size: 1.1rem;
+    color: #555;
+}
+
+.card-footer {
+    background-color: #f9f9f9;
+    padding: 10px;
+    border-top: 1px solid #ddd;
+    font-size: 0.9rem;
+    color: #888;
+}
+
+.footer-container {
+    display: flex;
+    justify-content: space-between;
+    padding: 20px;
+    background-color: #360C0C;
+    color: #ffffff;
+    flex-wrap: wrap;
+}
+
+.footer-left,
+.footer-center,
+.footer-right {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    margin: 5px;
+}
+
+.footer-center {
+    flex: 1;
+    text-align: center;
+}
+
+.footer-right {
+    align-items: flex-end;
+}
+
+.footer-links {
+    margin-bottom: 10px;
+}
+
+.social-icon img {
+    width: 30px;
+    height: 30px;
+    transition: transform 0.3s ease;
+}
+
+.social-icon img:hover {
+    transform: scale(1.1);
+}
+
+.footer-contact {
+    margin-top: 10px;
+    text-align: left;
+}
+
+.footer-contact a {
+    color: #ffffff;
+    text-decoration: none;
+}
+
+/* Media queries pour les petits écrans */
+@media (max-width: 768px) {
+    /* Ajuster les marges et les paddings */
+    body {
+        padding: 10px;
+    }
+
+    .intro {
+        padding: 20px;
+    }
+
+    .intro h2 {
+        font-size: 1.8rem;
+    }
+
+    .intro p {
+        font-size: 1rem;
+    }
+
+    /* Réduire la taille des onglets */
+    .nav-link {
+        font-size: 1rem;
+        padding: 8px 15px;
+    }
+
+    /* Ajuster la hauteur des images du carrousel */
+    .carousel-item img {
+        height: 300px;
+    }
+
+    /* Réduire la taille des textes dans les cartes */
+    .card-title {
+        font-size: 1.2rem;
+    }
+
+    .card-text {
+        font-size: 1rem;
+    }
+}
+
+/* Media queries pour les très petits écrans (smartphones) */
+@media (max-width: 576px) {
+    /* Centrer le texte et ajuster les marges */
+    .intro {
+        text-align: center;
+    }
+
+    .intro h2 {
+        font-size: 1.5rem;
+    }
+
+    .intro p {
+        font-size: 0.9rem;
+    }
+
+    /* Ajuster les boutons et les onglets */
+    .nav-link {
+        font-size: 0.9rem;
+        padding: 6px 10px;
+    }
+
+    /* Réduire encore la hauteur des images */
+    .carousel-item img {
+        height: 200px;
+    }
+
+    /* Ajuster les paddings des cartes */
+    .card-body {
+        padding: 10px;
+    }
+
+    .card-title {
+        font-size: 1rem;
+    }
+
+    .card-text {
+        font-size: 0.9rem;
+    }
+
+    /* Réduire les marges des sections */
+    .container {
+        padding: 10px;
+    }
+}
+
+/* Media queries pour les écrans moyens */
+@media (min-width: 769px) and (max-width: 1024px) {
+    .intro h2 {
+        font-size: 2rem;
+    }
+
+    .intro p {
+        font-size: 1rem;
+    }
+
+    .carousel-item img {
+        height: 400px;
+    }
+
+    .card-title {
+        font-size: 1.3rem;
+    }
+
+    .card-text {
+        font-size: 1rem;
+    }
+}

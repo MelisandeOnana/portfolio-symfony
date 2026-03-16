@@ -1,0 +1,67 @@
+<div id="scroll-progress-bar" style="height: 4px; background: linear-gradient(to right, #a78bfa, #8b5cf6); width: 0%; position: fixed; top: 0; left: 0; z-index: 9999; transition: width 0.2s;"></div>
+
+<nav class="bg-white/95 backdrop-blur-md border-b border-purple-100 sticky top-0 z-50 shadow-sm">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex justify-between items-center h-16 sm:h-20">
+            <!-- Logo ou titre (optionnel) -->
+            <div class="flex items-center">
+                <a href="{{ path('homepage') }}" class="text-xl font-bold text-purple-700 sm:hidden">Portfolio</a>
+            </div>
+            <!-- Bouton hamburger mobile -->
+            <button id="menu-toggle" class="sm:hidden flex items-center px-3 py-2 border rounded text-purple-700 border-purple-300 focus:outline-none" aria-label="Ouvrir le menu">
+                <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
+            </button>
+            <!-- Menu principal -->
+            <div id="main-menu" class="hidden sm:flex items-center space-x-1">
+                <a href="{{ path('homepage') }}" class="group flex items-center px-4 py-2 rounded-xl text-gray-600 hover:text-purple-600 hover:bg-purple-50 transition font-medium">
+                    <i class="fas fa-home mr-2"></i>Accueil
+                </a>
+                <a href="{{ path('skills_list') }}" class="group flex items-center px-4 py-2 rounded-xl text-gray-600 hover:text-purple-600 hover:bg-purple-50 transition font-medium">
+                    <i class="fas fa-cogs mr-2"></i>Compétences
+                </a>
+                <a href="{{ path('project_list') }}" class="group flex items-center px-4 py-2 rounded-xl text-gray-600 hover:text-purple-600 hover:bg-purple-50 transition font-medium">
+                    <i class="fas fa-folder-open mr-2"></i>Projets
+                </a>
+                <a href="{{ path('contact') }}" class="group flex items-center px-4 py-2 rounded-xl text-gray-600 hover:text-purple-600 hover:bg-purple-50 transition font-medium">
+                    <i class="fas fa-envelope mr-2"></i>Contact
+                </a>
+                {% if app.user %}
+                    <a href="{{ path('admin_dashboard') }}" class="group flex items-center px-6 py-3 bg-gradient-to-r from-purple-600 to-violet-600 text-white rounded-xl hover:from-purple-700 hover:to-violet-700 transition font-medium shadow-lg ml-2">
+                        <i class="fas fa-cog mr-2"></i>Admin
+                    </a>
+                {% endif %}
+            </div>
+        </div>
+        <!-- Menu mobile -->
+        <div id="mobile-menu" class="sm:hidden hidden flex-col space-y-1 py-2">
+            <a href="{{ path('homepage') }}" class="group flex items-center px-4 py-2 rounded-xl text-gray-600 hover:text-purple-600 hover:bg-purple-50 transition font-medium">
+                <i class="fas fa-home mr-2"></i>Accueil
+            </a>
+            <a href="{{ path('skills_list') }}" class="group flex items-center px-4 py-2 rounded-xl text-gray-600 hover:text-purple-600 hover:bg-purple-50 transition font-medium">
+                <i class="fas fa-cogs mr-2"></i>Compétences
+            </a>
+            <a href="{{ path('project_list') }}" class="group flex items-center px-4 py-2 rounded-xl text-gray-600 hover:text-purple-600 hover:bg-purple-50 transition font-medium">
+                <i class="fas fa-folder-open mr-2"></i>Projets
+            </a>
+            <a href="{{ path('contact') }}" class="group flex items-center px-4 py-2 rounded-xl text-gray-600 hover:text-purple-600 hover:bg-purple-50 transition font-medium">
+                <i class="fas fa-envelope mr-2"></i>Contact
+            </a>
+            {% if app.user %}
+                <a href="{{ path('admin_dashboard') }}" class="group flex items-center px-6 py-3 bg-gradient-to-r from-purple-600 to-violet-600 text-white rounded-xl hover:from-purple-700 hover:to-violet-700 transition font-medium shadow-lg ml-2">
+                    <i class="fas fa-cog mr-2"></i>Admin
+                </a>
+            {% endif %}
+        </div>
+    </div>
+</nav>
+<script>
+        if (!window.menuToggleInitialized) {
+            const menuToggle = document.getElementById('menu-toggle');
+            const mobileMenu = document.getElementById('mobile-menu');
+            const mainMenu = document.getElementById('main-menu');
+            menuToggle.addEventListener('click', function() {
+                mobileMenu.classList.toggle('hidden');
+            });
+            window.menuToggleInitialized = true;
+        }
+</script>

@@ -1,0 +1,186 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Galerie - {{ projet.titre }} - Portfolio Mélisande Onana{% endblock %}
+
+{% block body %}
+<!-- Gallery Hero -->
+<section class="bg-gradient-to-br from-purple-600 via-purple-700 to-violet-800 text-white py-8">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <!-- Header Navigation -->
+        <div class="flex items-center justify-between mb-6">
+            <div class="flex items-center space-x-4">
+                <a href="{{ path('project_show', {'id': projet.id}) }}" 
+                   class="inline-flex items-center text-purple-200 hover:text-white transition duration-300 group">
+                    <i class="fas fa-arrow-left mr-2 group-hover:-translate-x-1 transition-transform"></i>
+                    Retour au projet
+                </a>
+                <span class="text-purple-200">•</span>
+                <a href="{{ path('project_list') }}" 
+                   class="inline-flex items-center text-purple-200 hover:text-white transition duration-300">
+                    Tous les projets
+                </a>
+            </div>
+            <div class="flex items-center space-x-3">
+                {% if projet.typeProjet %}
+                    <span class="px-3 py-1 bg-white/20 backdrop-blur-sm text-white rounded-full text-xs font-medium border border-white/30">
+                        {{ projet.typeProjet }}
+                    </span>
+                {% endif %}
+                {% if projet.etat %}
+                    <span class="px-3 py-1 bg-green-500/30 backdrop-blur-sm text-white rounded-full text-xs font-medium border border-green-400/30">
+                        {{ projet.etat }}
+                    </span>
+                {% endif %}
+            </div>
+        </div>
+
+        <!-- Gallery Header -->
+        <div class="text-center mb-8">
+            <h1 class="text-3xl lg:text-4xl font-light mb-2">Galerie - {{ projet.titre }}</h1>
+            <p class="text-purple-200 text-sm">{{ projet.projetImages|length + 1 }} image{{ (projet.projetImages|length + 1) > 1 ? 's' : '' }} disponible{{ (projet.projetImages|length + 1) > 1 ? 's' : '' }}</p>
+        </div>
+    </div>
+</section>
+
+<!-- Gallery Grid -->
+<section class="py-8 bg-gray-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <!-- Image principale du projet -->
+            {% if projet.image %}
+                <div class="group cursor-pointer gallery-item" 
+                     data-image="{{ asset('assets/' ~ projet.image) }}" 
+                     data-caption="Image principale - {{ projet.titre }}">
+                    <div class="relative overflow-hidden rounded-xl shadow-lg hover:shadow-xl transition-all duration-300">
+                        <img src="{{ asset('assets/' ~ projet.image) }}" 
+                             class="w-full h-64 object-cover group-hover:scale-105 transition-transform duration-300" 
+                             alt="{{ projet.titre }} - Image principale">
+                        <div class="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors duration-300"></div>
+                        <div class="absolute bottom-4 left-4 right-4">
+                            <div class="bg-white/90 backdrop-blur-sm rounded-lg p-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                                <h3 class="font-semibold text-gray-900 text-sm">Image principale</h3>
+                                <p class="text-gray-600 text-xs">{{ projet.titre }}</p>
+                            </div>
+                        </div>
+                        <div class="absolute top-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                            <div class="w-8 h-8 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center">
+                                <i class="fas fa-expand text-white text-xs"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endif %}
+
+            <!-- Images supplémentaires du projet -->
+            {% for projetImage in projet.projetImages %}
+                <div class="group cursor-pointer gallery-item" 
+                     data-image="{{ asset(projetImage.imagePath) }}" 
+                     data-caption="Image {{ loop.index }} - {{ projet.titre }}">
+                    <div class="relative overflow-hidden rounded-xl shadow-lg hover:shadow-xl transition-all duration-300">
+                        <img src="{{ asset('assets/' ~ projetImage.imagePath) }}" 
+                             class="w-full h-64 object-cover group-hover:scale-105 transition-transform duration-300" 
+                             alt="{{ projet.titre }} - Image {{ loop.index }}">
+                        <div class="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors duration-300"></div>
+                        <div class="absolute bottom-4 left-4 right-4">
+                            <div class="bg-white/90 backdrop-blur-sm rounded-lg p-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                                <h3 class="font-semibold text-gray-900 text-sm">Image {{ loop.index }}</h3>
+                                <p class="text-gray-600 text-xs">{{ projet.titre }}</p>
+                            </div>
+                        </div>
+                        <div class="absolute top-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                            <div class="w-8 h-8 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center">
+                                <i class="fas fa-expand text-white text-xs"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+
+            <!-- Message si pas d'images supplémentaires -->
+            {% if projet.projetImages|length == 0 and not projet.image %}
+                <div class="col-span-full text-center py-12">
+                    <i class="fas fa-images text-gray-400 text-4xl mb-4"></i>
+                    <h3 class="text-lg font-medium text-gray-900 mb-2">Aucune image disponible</h3>
+                    <p class="text-gray-500">Ce projet n'a pas encore d'images dans sa galerie.</p>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+</section>
+
+<!-- Modal pour affichage plein écran -->
+<div id="imageModal" class="fixed inset-0 bg-black/90 z-50 hidden items-center justify-center p-4">
+    <div class="relative max-w-7xl max-h-full">
+        <button onclick="closeModal()" class="absolute top-4 right-4 text-white hover:text-gray-300 transition-colors z-10">
+            <i class="fas fa-times text-2xl"></i>
+        </button>
+    <img id="modalImage" src="" alt="" class="max-w-full max-h-[90vh] object-contain rounded-lg shadow-2xl">
+        <div id="modalCaption" class="absolute bottom-4 left-4 right-4 text-center">
+            <div class="bg-black/50 backdrop-blur-sm rounded-lg p-3">
+                <p class="text-white font-medium"></p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+function handleImageError(img, text) {
+    img.src = 'https://via.placeholder.com/400x300/8B5CF6/FFFFFF?text=' + encodeURIComponent(text);
+}
+
+function openModal(imageSrc, caption) {
+    const modal = document.getElementById('imageModal');
+    const modalImage = document.getElementById('modalImage');
+    const modalCaption = document.getElementById('modalCaption').querySelector('p');
+    modalImage.src = imageSrc.startsWith('/assets/') ? imageSrc : '/assets/' + imageSrc.replace(/^assets\//, '');
+    modalImage.alt = caption;
+    modalCaption.textContent = caption;
+    modal.classList.remove('hidden');
+    modal.classList.add('flex');
+    document.body.style.overflow = 'hidden';
+}
+
+function closeModal() {
+    const modal = document.getElementById('imageModal');
+    modal.classList.add('hidden');
+    modal.classList.remove('flex');
+    document.body.style.overflow = 'auto';
+}
+
+// Empêcher la fermeture de la modal au clic sur le contenu
+document.addEventListener('DOMContentLoaded', function() {
+    document.getElementById('imageModal').addEventListener('click', function(e) {
+        if (e.target === this) {
+            closeModal();
+        }
+    });
+});
+
+// Initialiser les événements après le chargement du DOM
+document.addEventListener('DOMContentLoaded', function() {
+    // Gestion des clics sur les images de la galerie
+    document.querySelectorAll('.gallery-item').forEach(function(item) {
+        item.addEventListener('click', function() {
+            const imageSrc = this.getAttribute('data-image');
+            const caption = this.getAttribute('data-caption');
+            openModal(imageSrc, caption);
+        });
+    });
+
+    // Gestion des erreurs d'images
+    document.querySelectorAll('.gallery-item img').forEach(function(img) {
+        img.addEventListener('error', function() {
+            const altText = this.getAttribute('alt');
+            handleImageError(this, altText);
+        });
+    });
+});
+
+// Fermer avec Escape
+document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') {
+        closeModal();
+    }
+});
+</script>
+{% endblock %}

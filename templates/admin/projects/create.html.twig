@@ -1,0 +1,115 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Nouveau projet - Administration{% endblock %}
+{% block header%}{% endblock %}
+
+{% block body %}
+<section class="bg-gradient-to-r from-purple-700 via-purple-500 to-pink-500 text-white py-16 shadow-lg relative overflow-hidden">
+    <div class="absolute inset-0 opacity-10 pointer-events-none">
+        <div class="absolute top-10 left-10 w-32 h-32 bg-white rounded-full animate-pulse"></div>
+        <div class="absolute top-40 right-20 w-24 h-24 bg-white rounded-full animate-bounce"></div>
+        <div class="absolute bottom-20 left-1/4 w-16 h-16 bg-white rounded-full animate-ping"></div>
+        <div class="absolute bottom-40 right-1/3 w-12 h-12 bg-white rounded-full animate-pulse"></div>
+    </div>
+    <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <h1 class="text-5xl font-extrabold mb-2 tracking-tight drop-shadow-lg">Nouveau projet</h1>
+        <p class="text-purple-100 text-lg">Ajoutez un nouveau projet à votre portfolio</p>
+    </div>
+</section>
+
+<section class="py-12 bg-gray-50">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="bg-white rounded-2xl shadow-2xl p-10 border border-gray-100">
+            {{ form_start(form, {'attr': {'class': 'space-y-8'}}) }}
+                {{ form_errors(form) }}
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div>
+                        {{ form_label(form.titre) }}
+                        {{ form_widget(form.titre) }}
+                        {{ form_errors(form.titre) }}
+                    </div>
+                    <div>
+                        {{ form_label(form.typeProjet) }}
+                        {{ form_widget(form.typeProjet) }}
+                        {{ form_errors(form.typeProjet) }}
+                    </div>
+                </div>
+                <div>
+                    {{ form_label(form.description) }}
+                    {{ form_widget(form.description) }}
+                    {{ form_errors(form.description) }}
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <div>
+                        {{ form_label(form.dateDebut) }}
+                        {{ form_widget(form.dateDebut, {'attr': {'id': 'dateDebut'}}) }}
+                        {{ form_errors(form.dateDebut) }}
+                    </div>
+                    <div>
+                        {{ form_label(form.dateFin) }}
+                        {{ form_widget(form.dateFin, {'attr': {'id': 'dateFin'}}) }}
+                        {{ form_errors(form.dateFin) }}
+                    </div>
+                    <!-- Champ durée supprimé -->
+                </div>
+                <!-- Script durée supprimé -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div>
+                        {{ form_label(form.etat) }}
+                        {{ form_widget(form.etat) }}
+                        {{ form_errors(form.etat) }}
+                    </div>
+                    <div>
+                        {{ form_label(form.visible) }}
+                        {{ form_widget(form.visible) }}
+                        {{ form_errors(form.visible) }}
+                    </div>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div>
+                        {{ form_label(form.lien) }}
+                        {{ form_widget(form.lien) }}
+                        {{ form_errors(form.lien) }}
+                    </div>
+                    <div>
+                        {{ form_label(form.githubLinks) }}
+                        {{ form_widget(form.githubLinks) }}
+                        {{ form_errors(form.githubLinks) }}
+                    </div>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div>
+                        {{ form_label(form.image) }}
+                        {{ form_widget(form.image) }}
+                        {{ form_errors(form.image) }}
+                    </div>
+                    <div>
+                        {{ form_label(form.documents) }}
+                        {{ form_widget(form.documents) }}
+                        {{ form_errors(form.documents) }}
+                    </div>
+                </div>
+                <div>
+                    {{ form_label(form.technologies) }}
+                    <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 p-4 border border-gray-200 rounded-xl max-h-64 overflow-y-auto bg-gray-50">
+                        {% for child in form.technologies %}
+                            <label class="flex items-center space-x-2 cursor-pointer hover:bg-purple-50 rounded px-2 py-1 transition">
+                                {{ form_widget(child, {'attr': {'class': 'rounded border-gray-300 text-purple-600 focus:ring-purple-500'}}) }}
+                                <span class="text-sm text-gray-700">{{ child.vars.label }}</span>
+                            </label>
+                        {% endfor %}
+                    </div>
+                    {{ form_errors(form.technologies) }}
+                </div>
+                <div class="flex justify-between items-center pt-8 border-t border-gray-200">
+                    <a href="{{ path('admin_project_list') }}" 
+                       class="inline-flex items-center px-6 py-3 bg-gray-600 text-white rounded-xl hover:bg-gray-700 transition-colors duration-300 shadow">
+                        <i class="fas fa-arrow-left mr-2"></i>Annuler
+                    </a>
+                    {{ form_widget(form.save, {'attr': {'class': 'inline-flex items-center px-8 py-3 bg-gradient-to-r from-purple-600 to-pink-600 text-white rounded-xl hover:from-purple-700 hover:to-pink-700 transition-all duration-300 shadow-lg font-semibold text-lg'}}) }}
+                </div>
+            {{ form_end(form) }}
+        </div>
+    </div>
+</section>
+{% endblock %}

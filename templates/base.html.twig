@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Portfolio{% endblock %}</title>
+    {% block stylesheets %}
+        <link href="https://fonts.googleapis.com/css2?family=Epilogue:wght@400;700&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="{{ asset('styles/app.css') }}">
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+    {% endblock %}
+    {% block javascripts %}
+        <script src="https://cdn.tailwindcss.com"></script>
+        {{ importmap() }}
+    {% endblock %}
+</head>
+<body class="bg-gray-50 min-h-screen font-sans"
+    {% block body_attributes %}{% endblock %}>
+    {% block header %}
+        {% include 'components/header.html.twig' ignore missing %}
+    {% endblock %}
+
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        {% block body %}
+        {% endblock %}
+    </main>
+    {% block footer %}
+        {% include 'components/footer.html.twig' ignore missing %}
+    {% endblock %}
+</body>
+</html>

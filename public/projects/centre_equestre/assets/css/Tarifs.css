@@ -1,0 +1,443 @@
+/* Import Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+
+body {
+    font-family: 'Roboto', Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+header {
+    background-color: #360C0C;
+    color: #fff;
+    padding: 30px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    position: relative;
+}
+
+.centre {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    flex-grow: 1;
+    margin-left: 155px;
+}
+
+.centre-not-connected {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.header-title {
+    font-size: 1.8em;
+    font-weight: 700;
+    margin-bottom: 5px;
+}
+
+.header-line {
+    width: 100%;
+    max-width: 200px;
+    height: 1px;
+    background-color: #fff;
+    margin: 5px 0;
+}
+
+.header-subtitle {
+    font-size: 1em;
+}
+
+.hamburger-menu {
+    cursor: pointer;
+    width: 30px;
+    height: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.bar1{
+    width: 45px;
+    height: 2px;
+    background-color: #fff;
+    transition: transform 0.3s ease, width 0.3s ease;
+}
+
+.bar2 {
+    width: 35px;
+    height: 2px;
+    background-color: #fff;
+    transition: transform 0.3s ease, width 0.3s ease;
+}
+
+.bar3 {
+    width: 25px;
+    height: 2px;
+    background-color: #fff;
+    transition: transform 0.3s ease, width 0.3s ease;
+}
+
+.login-container {
+    margin-right: 20px;
+}
+
+/* Bouton du dropdown */
+.login-btn {
+    width: 35px;
+}
+
+/* Styles pour le bouton de bienvenue */
+.welcome-btn {
+    background-color: #fff;
+    color: #360C0C;
+    border: 2px solid #360C0C;
+    cursor: pointer;
+    font-size: 1em;
+    font-weight: 700;
+    padding: 10px 20px;
+    border-radius: 4px;
+    transition: all 0.3s ease;
+    margin-top: 10px;
+    text-align: center;
+}
+
+.welcome-btn:hover {
+    background-color: #360C0C;
+    color: #fff;
+}
+
+/* Conteneur de dropdown */
+.dropdown {
+    position: relative;
+    display: inline-block;
+    text-align: center; /* Ajouté pour centrer le contenu */
+}
+
+/* Contenu du dropdown (caché par défaut) */
+.dropdown-menu {
+    display: none;
+    position: absolute;
+    background-color: #fff;
+    min-width: 160px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+    z-index: 1;
+    text-align: center;
+    border-radius: 4px;
+    margin-top: 10px; /* Un peu d'espace entre le bouton et le menu */
+    opacity: 0; /* Début avec une opacité de 0 pour l'animation */
+    transition: opacity 0.3s ease, transform 0.3s ease; /* Transition pour l'animation */
+    transform: translateY(-10px); /* Début avec une légère translation vers le haut */
+}
+
+/* Afficher le contenu du dropdown */
+.dropdown.show .dropdown-menu {
+    display: block;
+    opacity: 1; /* Opacité 1 pour afficher le contenu */
+    transform: translateY(0); /* Réinitialiser la translation */
+}
+
+/* Liens du dropdown */
+.dropdown-menu a {
+    color: #360C0C;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+/* Styles des liens au survol */
+.dropdown-menu a:hover {
+    background-color: #360C0C;
+    color: #fff;
+}
+
+/* Styles des boutons */
+.admin-btn, .logout-btn {
+    background-color: #fff;
+    color: #360C0C;
+    border: 2px solid #360C0C;
+    cursor: pointer;
+    font-size: 1em;
+    transition: all 0.3s ease;
+    padding: 8px 16px;
+    border-radius: 4px;
+    margin: 5px 0; /* Espace entre les boutons */
+}
+
+/* Styles des boutons au survol */
+.admin-btn:hover, .logout-btn:hover {
+    background-color: #360C0C;
+    color: #fff;
+}
+
+/* Styles CSS pour la side nav */
+.sidenav {
+    height: 100%;
+    width: 0;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: #360C0C;
+    overflow-x: hidden;
+    transition: width 0.5s, opacity 0.5s;
+    padding-top: 60px;
+    text-align: left; 
+    z-index: 1000; /* Assurez-vous que la side nav a un z-index élevé */
+}
+
+.sidenav ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.sidenav ul li {
+    display: flex;
+    align-items: center;
+    padding: 15px 20px;
+    transition: background-color 0.3s, color 0.3s;
+    border-radius: 4px;
+    margin: 5px 15px;
+    font-size: 1.1em;
+    font-weight: bold;
+}
+
+.sidenav ul li a {
+    color: #fff;
+    text-decoration: none;
+    flex-grow: 1;
+}
+
+.sidenav ul li img {
+    height: 32px;
+    margin-right: 10px; /* Ajoutez un espace entre l'icône et le texte */
+}
+
+.sidenav ul li:hover {
+    background-color: #444;
+    color: #f0f0f0;
+    transform: scale(1.05);
+}
+
+.sidenav span {
+    display: block;
+    padding: 10px 20px;
+    color: #fff;
+    font-size: 1.5em;
+    font-weight: bold;
+    text-align: center;
+}
+
+.sidenav .closebtn {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    font-size: 2em;
+    cursor: pointer;
+    color: #fff;
+    transition: transform 0.3s ease, color 0.3s ease;
+}
+
+.sidenav .closebtn:hover {
+    color: #f0f0f0;
+    transform: rotate(90deg);
+}
+
+.sidenav .closebtn:hover {
+    color: #f0f0f0;
+    transform: rotate(90deg);
+}
+
+.container {
+    max-width: 800px;
+    margin: 50px auto;
+    padding: 20px;
+    background-color: #fff; /* Fond blanc */
+    border-radius: 10px; /* Coins arrondis */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Ombre douce */
+}
+.accordion-button {
+    background-color: #360C0C; /* Fond marron */
+    color: #fff; /* Texte blanc */
+    border: none; /* Pas de bordure */
+    border-radius: 5px; /* Coins arrondis */
+    padding: 15px;
+    font-size: 1.2rem;
+    text-align: left;
+    font-weight: bold;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+.accordion-button:hover {
+    background-color: #2a0909; /* Marron plus foncé au survol */
+    transform: scale(1.02); /* Légère mise en avant */
+}
+.accordion-button:not(.collapsed) {
+    background-color: #2a0909; /* Marron plus foncé lorsque ouvert */
+    color: #fff; /* Texte blanc */
+}
+.accordion-button::after {
+    content: '\25bc'; /* Flèche vers le bas */
+    font-size: 1rem;
+    color: #fff; /* Couleur blanche pour correspondre au texte */
+    float: right;
+    transition: transform 0.3s ease;
+}
+.accordion-button:not(.collapsed)::after {
+    transform: rotate(180deg); /* Rotation de la flèche vers le haut lorsque l'accordéon est ouvert */
+}
+.accordion-item {
+    margin-bottom: 15px;
+    border: 1px solid #d3c4b1; /* Bordure marron clair */
+    border-radius: 5px; /* Coins arrondis */
+    overflow: hidden; /* Empêche le débordement */
+}
+.accordion-header {
+    padding: 0;
+    margin: 0;
+}
+.accordion-body {
+    background-color: #fdf8f4; /* Fond blanc cassé */
+    padding: 20px;
+    color: #4a3f35; /* Texte marron foncé */
+    border-top: 1px solid #d3c4b1; /* Bordure supérieure marron clair */
+    font-size: 1rem;
+}
+
+.footer-container {
+    display: flex;
+    justify-content: space-between;
+    padding: 20px;
+    background-color: #360C0C;
+    color: #ffffff;
+    flex-wrap: wrap;
+}
+
+.footer-left,
+.footer-center,
+.footer-right {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    margin: 5px;
+}
+
+.footer-center {
+    flex: 1;
+    text-align: center;
+}
+
+.footer-right {
+    align-items: flex-end;
+}
+
+.footer-links {
+    margin-bottom: 10px;
+}
+
+.social-icon img {
+    width: 30px;
+    height: 30px;
+    transition: transform 0.3s ease;
+}
+
+.social-icon img:hover {
+    transform: scale(1.1);
+}
+
+.footer-contact {
+    margin-top: 10px;
+    text-align: left;
+}
+
+.footer-contact a {
+    color: #ffffff;
+    text-decoration: none;
+}
+
+/* Media Query pour les écrans de taille maximale de 768px */
+@media screen and (max-width: 768px) {
+    header {
+        flex-direction: column;
+    }
+
+    .header-title {
+        font-size: 1.2em;
+    }
+
+    .header-subtitle {
+        font-size: 0.8em;
+    }
+
+    .centre {
+        text-align: center;
+        margin-top: 20px;
+        position: static;
+        margin-left: 0;
+        margin-right: 0;
+    }
+
+    .bar1,
+    .bar2,
+    .bar3 {
+        width: 45px;
+    }
+
+    .login-container {
+        margin-top: 20px;
+        text-align: center;
+        margin-right: 0;
+    }
+}
+
+/* Media Query pour les écrans de taille maximale de 425px */
+@media screen and (max-width: 425px) {
+    .login-container {
+        margin-top: 10px;
+    }
+
+    /* Améliorer les styles des cartes pour les petits écrans */
+    .categorie {
+        flex: 1 1 calc(100% - 40px); /* Prend toute la largeur disponible */
+        max-width: calc(100% - 40px);
+        margin-bottom: 20px; /* Espacement entre les cartes */
+    }
+
+    .categorie h2 {
+        font-size: 20px; /* Réduire la taille du titre */
+    }
+
+    .categorie p {
+        font-size: 14px; /* Réduire la taille du texte */
+    }
+
+    .tarifs li {
+        font-size: 16px; /* Réduire la taille des éléments de liste */
+    }
+
+    /* Ajouter des animations de survol pour les cartes */
+    .categorie:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+
+    /* Animation d'apparition pour les cartes */
+    @keyframes fadeIn {
+        from {
+            opacity: 0;
+            transform: translateY(10px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    .categorie {
+        animation: fadeIn 0.5s ease-in-out;
+    }
+}

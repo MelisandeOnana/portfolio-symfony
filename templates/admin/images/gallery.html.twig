@@ -1,0 +1,37 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Galerie d’images du projet{% endblock %}
+
+{% block header%}{% endblock %}
+
+{% block body %}
+<div class="max-w-4xl mx-auto px-4 py-8">
+    <h1 class="text-3xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-purple-500 to-violet-600 mb-6">Galerie d’images pour : {{ projet.titre }}</h1>
+
+    <form method="post" enctype="multipart/form-data" class="mb-8 flex flex-col md:flex-row items-center gap-4 bg-purple-50 p-6 rounded-xl shadow">
+        <label class="block text-purple-700 font-semibold">Ajouter une image au projet :</label>
+        <input type="file" name="image" accept="image/*" required class="block w-full md:w-auto px-4 py-2 border border-purple-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-400" />
+        <button type="submit" class="px-6 py-2 bg-gradient-to-r from-purple-500 to-pink-600 text-white font-bold rounded-full shadow hover:from-purple-600 hover:to-pink-700 transition-all duration-300">Uploader</button>
+    </form>
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {% for image in images %}
+            <div class="bg-white border-2 border-pink-100 rounded-2xl shadow-xl p-6 flex flex-col justify-between hover:shadow-2xl transition-all duration-500 hover:-translate-y-1">
+                <img src="{{ asset('assets/' ~ image.imagePath) }}" alt="Image projet" class="w-full h-40 object-cover rounded-lg mb-4 border-2 border-pink-200" />
+                <p class="text-gray-600 mb-2">Fichier : {{ image.imagePath }}</p>
+                {% if image.projet is null %}
+                    <form method="post" action="{{ path('admin_images_associer', {imageId: image.id, projetId: projet.id}) }}">
+                        <button type="submit" class="w-full px-4 py-2 bg-gradient-to-r from-purple-500 to-pink-600 text-white rounded-full font-semibold shadow hover:from-purple-600 hover:to-pink-700 transition-all duration-300">Associer à ce projet</button>
+                    </form>
+                {% else %}
+                    <span class="inline-block px-4 py-2 bg-gradient-to-r from-green-400 to-green-600 text-white rounded-full font-semibold shadow">Déjà associé</span>
+                {% endif %}
+            </div>
+        {% else %}
+            <div class="col-span-full text-center text-purple-400 py-12 text-lg font-semibold">Aucune image disponible.</div>
+        {% endfor %}
+    </div>
+    <div class="mt-8 flex justify-center">
+        <a href="{{ path('admin_project_list') }}" class="px-6 py-3 bg-gradient-to-r from-violet-500 to-purple-600 text-white font-semibold rounded-full shadow hover:from-violet-600 hover:to-purple-700 transition-all duration-300">Retour aux projets</a>
+    </div>
+</div>
+{% endblock %}
